@@ -1,0 +1,23 @@
+This is your new Lab 4 Play application
+========================================
+
+Please follow the Lab instructions!
+
+If you clone this and run locally with 'activator run' you should see 'Hello World!' output in the console and 'Hello Play!' in your browser window.
+
+
+Controllers
+===========
+
+- HomeController.java:
+
+  Shows how to handle simple HTTP requests.
+
+
+Components
+==========
+
+- Module.java:
+
+  Shows how to use Guice to bind all the components needed by your application.
+
