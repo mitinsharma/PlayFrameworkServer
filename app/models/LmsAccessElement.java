@@ -10,7 +10,8 @@ import java.util.List;
  */
 public class LmsAccessElement extends CommonState {
      public LmsAccessElement() {
-        userAccesses = new ArrayList<>();
+         super();
+         userAccesses = new ArrayList<>();
     }
 
     private Boolean isAuthorized(long userId, AccessLevel accessLevel) {
