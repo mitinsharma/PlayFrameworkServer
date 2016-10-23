@@ -51,5 +51,8 @@ public class DbInit {
     }
 
     private void serviceTest() {
+        LMS lms = new LMS("team2-LMS");
+        Institution marist = new Institution("Marist College");
+        Department mscs = new Department("MSCS");
     }
 }
