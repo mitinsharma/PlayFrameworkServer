@@ -1,4 +1,5 @@
 import com.google.inject.AbstractModule;
+import init.DbInit;
 
 /**
  * This class is a Guice module that tells Guice how to bind several
@@ -16,6 +17,7 @@ public class Module extends AbstractModule {
     public void configure() {
         //
 		System.out.println("Hello World!");
+        bind(DbInit.class).asEagerSingleton();
     }
 
 }

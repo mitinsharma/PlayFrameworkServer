@@ -13,7 +13,7 @@ public class SectionServices extends FdfCommonServices {
             save(EntrollmentAction.class, addedStudent);
             return newSection;
         }
-    public Section drop(User dropStudent){
+    public Section drop(User dropStudent) {
         //need miten to do his part to continue
         save(EntrollmentAction.class, addedStudent);
         return newSection;
