@@ -8,7 +8,7 @@ import models.Section;
  */
 public class SectionServices extends FdfCommonServices {
 
-        public Section enroll(User addedStudent){
+/*        public Section enroll(User addedStudent){
         //need miten to do his part to continue
             save(EntrollmentAction.class, addedStudent);
             return newSection;
@@ -26,7 +26,7 @@ public class SectionServices extends FdfCommonServices {
     public Section getGrade(User user){
         //need miten to do his part to continue
 
-    }
+    }*/
 
 
 //+ enroll(student:User)
