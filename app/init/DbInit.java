@@ -1,16 +1,17 @@
 package init;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fdflib.persistence.database.DatabaseUtil;
 import com.fdflib.service.FdfServices;
 import com.fdflib.util.FdfSettings;
-import models.Department;
-import models.Institution;
-import models.LMS;
-import models.UserAccess;
+import models.*;
 import play.Environment;
+import services.*;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -33,15 +34,20 @@ public class DbInit {
         FdfSettings.DB_HOST = "localhost";
         FdfSettings.DB_USER = "team2";
         FdfSettings.DB_PASSWORD = "isbestteam";
-        FdfSettings.DB_NAME = "mscs-lms";
+        FdfSettings.DB_NAME = "mscs_lms";
 
         // Create an array that makes up our 4df data model.
         List<Class> myModel = new ArrayList<>();
 
         // Add model objects.
-        myModel.add(LMS.class);
-        myModel.add(Institution.class);
+        myModel.add(Course.class);
         myModel.add(Department.class);
+        myModel.add(Institution.class);
+        myModel.add(InstitutionTerm.class);
+        myModel.add(LMS.class);
+        myModel.add(MeetingTime.class);
+        myModel.add(Section.class);
+        myModel.add(Term.class);
         myModel.add(UserAccess.class);
 
         // Call the initialization of the library
@@ -51,8 +57,24 @@ public class DbInit {
     }
 
     private void serviceTest() {
+        AccessService as = new AccessService();
+        CourseServices cs = new CourseServices();
+        LmsService ls = new LmsService();
+        SectionServices ss = new SectionServices();
+        TermService ts = new TermService();
+        UserService us = new UserService();
+
         LMS lms = new LMS("team2-LMS");
         Institution marist = new Institution("Marist College");
         Department mscs = new Department("MSCS");
+        Term fall2016 = new Term("fall 2016",
+                LocalDate.of(2016, Month.AUGUST, 29),
+                LocalDate.of(2016, Month.DECEMBER, 16));
+
+        lms.institutionId = marist.id;
+        marist.lmsId = lms.id;
+
+        ts.saveTerm(fall2016);
+        ls.saveLms(lms);
     }
 }

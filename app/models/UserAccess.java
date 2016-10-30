@@ -8,12 +8,14 @@ import com.fdflib.model.state.CommonState;
 public class UserAccess extends CommonState {
     public UserAccess() { super(); }
 
-    public UserAccess(long inUserId, AccessLevel inAccessLevel) {
+    public UserAccess(long inUserId, long inElementId, AccessLevel inAccessLevel) {
         super();
         userId = inUserId;
+        elementId = inElementId;
         accessLevel = inAccessLevel;
     }
 
     public long userId;
+    public long elementId;
     public AccessLevel accessLevel;
 }

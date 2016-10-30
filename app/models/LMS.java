@@ -8,7 +8,9 @@ public class LMS extends LmsAccessElement {
     public LMS(String inName) {
         super();
         name = inName;
+        institutionId = -1;
     }
 
     public String name;
+    public long institutionId;
 }

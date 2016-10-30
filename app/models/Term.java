@@ -1,15 +1,23 @@
 package models;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Created by Dominic Rossillo on 10/24/2016.
  */
-public class Term {
+public class Term extends LmsAccessElement {
+    public Term() { super(); }
+    public Term(String inName, LocalDate inStart, LocalDate inEnd) {
+        super();
+        name = inName;
+        year = inStart.getYear();
+        startDate = inStart;
+        endDate = inEnd;
+    }
 
     public String name;
-    public int year;
-    public Date startDate;
-    public Date endDate;
+    public int year; // NOTE: Is this redundant with start/end date?
+    public LocalDate startDate;
+    public LocalDate endDate;
 
 }

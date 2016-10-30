@@ -14,9 +14,11 @@ public class LmsAccessElement extends CommonState {
          userAccesses = new ArrayList<>();
     }
 
-    private Boolean isAuthorized(long userId, AccessLevel accessLevel) {
+    private Boolean isAuthorized(long userId, long elementId, AccessLevel accessLevel) {
         for(UserAccess userAccess : userAccesses) {
-            if(userAccess.userId == userId && userAccess.accessLevel == accessLevel) {
+            if(userAccess.userId == userId &&
+                    userAccess.elementId == elementId &&
+                    userAccess.accessLevel == accessLevel) {
                 return true;
             }
         }
