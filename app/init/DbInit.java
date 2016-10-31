@@ -1,12 +1,12 @@
 package init;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fdflib.persistence.database.DatabaseUtil;
 import com.fdflib.service.FdfServices;
 import com.fdflib.util.FdfSettings;
 import models.*;
 import play.Environment;
 import services.*;
+
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -28,6 +28,7 @@ public class DbInit {
         logger.info("Team2 LMS Start");
 
         // Get the 4DFLib settings singleton
+        FdfSettings fdfSettings = FdfSettings.getInstance();
         FdfSettings.PERSISTENCE = DatabaseUtil.DatabaseType.MYSQL;
         FdfSettings.DB_PROTOCOL = DatabaseUtil.DatabaseProtocol.JDBC_MYSQL;
         FdfSettings.DB_ENCODING = DatabaseUtil.DatabaseEncoding.UTF8;
@@ -62,7 +63,7 @@ public class DbInit {
         LmsService ls = new LmsService();
         SectionServices ss = new SectionServices();
         TermService ts = new TermService();
-        UserService us = new UserService();
+        UserServices us = new UserServices();
 
         LMS lms = new LMS("team2-LMS");
         Institution marist = new Institution("Marist College");

@@ -1,37 +1,70 @@
 package services;
 
+import com.fdflib.model.entity.FdfEntity;
 import com.fdflib.service.impl.FdfCommonServices;
 import models.Section;
+
+import java.util.List;
 
 /**
  * Created by Dominic Rossillo on 10/24/2016.
  */
 public class SectionServices extends FdfCommonServices {
 
-/*        public Section enroll(User addedStudent){
-        //need miten to do his part to continue
-            save(EntrollmentAction.class, addedStudent);
-            return newSection;
-        }
-    public Section drop(User dropStudent) {
-        //need miten to do his part to continue
-        save(EntrollmentAction.class, addedStudent);
+
+
+
+
+
+
+    public Section saveSection(Section newSection){
+
+        save(Section.class, newSection);
         return newSection;
     }
-    public Section submitPost(Post post){
-        //need miten to do his part to continue
-        save(Post.class, post);
-        return ;
+
+
+    //load all current for Course
+    public List<Section> getAllSections(){
+        return this.getAllCurrent(Section.class);
+
     }
-    public Section getGrade(User user){
-        //need miten to do his part to continue
 
-    }*/
+    //get all Sections with history
+    public List<FdfEntity<Section>> getAllSectionWithHistory() {
+        return this.getAll(Section.class);
+    }
+
+    //get Section by code
+    public Section getSectionByCode(String code){
+        List <FdfEntity<Section>> tarSection= getEntitiesByValueForPassedField(Section.class, "code", code);
+        return tarSection.get(0).current;
+
+    }
+    //get Sections by Course name
+    public List<FdfEntity<Section>> getSectionByCourseName(String name){
+        List <FdfEntity<Section>> tarSection= getEntitiesByValueForPassedField(Section.class, "name", name);
+        return tarSection;
+
+    }
+
+    //get Section by id
+    public Section getSectionById(Long id){
+        return getEntityCurrentById(Section.class,id);
+    }
 
 
-//+ enroll(student:User)
-//+ drop(student:User)
-//+ submitPost(post:Post)
-//+ getGrade(student:User): float
+    //delete Section
+    public void deleteCourse(Long id){
+        setDeleteFlag(Section.class,id,-1,-1);
+
+    }
+    //undelete section
+    public void undeleteCourse(Long id){
+        removeDeleteFlag(Section.class,id,-1,-1);
+    }
+
+
+
 
 }
