@@ -4,6 +4,7 @@ import com.fdflib.model.entity.FdfEntity;
 import com.fdflib.service.impl.FdfCommonServices;
 import models.Section;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -12,14 +13,19 @@ import java.util.List;
 public class SectionServices extends FdfCommonServices {
 
 
-
-
-
-
-
     public Section saveSection(Section newSection){
 
-        save(Section.class, newSection);
+        if(getEntitiesByValueForPassedField(Section.class, "name", newSection.name).size()<1
+                && getEntitiesByValueForPassedField(Section.class, "code", Integer.toString(newSection.code)).size()<1){
+            save(Section.class,newSection);
+
+        }
+        else {
+            FdfEntity<Section> oldSection =getSectionByNameAndCode(newSection.name,newSection.code);
+            newSection.id=oldSection.entityId;
+            newSection.cf=true;
+            save(Section.class, newSection);
+        }
         return newSection;
     }
 
@@ -53,6 +59,20 @@ public class SectionServices extends FdfCommonServices {
         return getEntityCurrentById(Section.class,id);
     }
 
+
+
+    //get Section by name and code
+    public FdfEntity<Section> getSectionByNameAndCode(String name, int code) {
+        HashMap<String, String> fieldsAndValues = new HashMap<>();
+        fieldsAndValues.put("name", name);
+        fieldsAndValues.put("code", Integer.toString(code));
+
+
+        List<FdfEntity<Section>> tarSection =
+                getEntitiesByValuesForPassedFields(Section.class, fieldsAndValues);
+
+        return tarSection.get(0);
+    }
 
     //delete Section
     public void deleteCourse(Long id){
