@@ -6,8 +6,8 @@ import com.fdflib.model.state.CommonState;
  * Created by tsmanner on 11/1/2016.
  */
 public class DepartmentCourse extends CommonState {
-    DepartmentCourse() { super(); }
-    DepartmentCourse(long inDepartmentId, long inCourseId) {
+    public DepartmentCourse() { super(); }
+    public DepartmentCourse(long inDepartmentId, long inCourseId) {
         super();
         departmentId = inDepartmentId;
         courseId = inCourseId;
