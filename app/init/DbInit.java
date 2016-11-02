@@ -55,6 +55,10 @@ public class DbInit {
         FdfServices.initializeFdfDataModel(myModel);
 
         serviceTest();
+
+        userTest();
+
+        accessTest();
     }
 
     private void serviceTest() {
@@ -78,4 +82,23 @@ public class DbInit {
         ts.saveTerm(fall2016);
         ls.saveLms(lms);
     }
+
+    private void userTest() {
+        UserServices us = new UserServices();
+
+        User testUser = new User("Test", "Man", "001", "TestMan", "TestPass");
+
+        us.saveUser(testUser);
+
+    }
+
+    private void accessTest() {
+        AccessService as = new AccessService();
+
+        UserAccess testUserStudent = new UserAccess(001, 01, AccessLevel.STUDENT);
+
+        as.saveUserAccess(testUserStudent);
+
+    }
+
 }
