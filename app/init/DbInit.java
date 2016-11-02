@@ -58,7 +58,7 @@ public class DbInit {
 
         userTest();
 
-        accessTest();
+        //accessTest();
     }
 
     private void serviceTest() {
@@ -86,12 +86,19 @@ public class DbInit {
     private void userTest() {
         UserServices us = new UserServices();
 
-        User testUser = new User("Test", "Man", "001", "TestMan", "TestPass");
 
-        us.saveUser(testUser);
+        User testStudent = new User("Student", "Test", "Student", "TestPass");
+        User testAdmin = new User("Admin", "Test", "Admin", "TestPass");
+        User testFaculty = new User("Faculty", "Test", "Faculty", "TestPass");
+        User testTA = new User("TA", "Test", "Ta", "TestPass");
+
+        us.saveUser(testStudent);
+        us.saveUser(testAdmin);
+        us.saveUser(testFaculty);
+        us.saveUser(testTA);
 
     }
-
+/*
     private void accessTest() {
         AccessService as = new AccessService();
 
@@ -100,5 +107,5 @@ public class DbInit {
         as.saveUserAccess(testUserStudent);
 
     }
-
+*/
 }
