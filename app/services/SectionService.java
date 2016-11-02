@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Dominic Rossillo on 10/24/2016.
  */
-public class SectionServices extends FdfCommonServices {
+public class SectionService extends FdfCommonServices {
 
 
     public Section saveSection(Section newSection){

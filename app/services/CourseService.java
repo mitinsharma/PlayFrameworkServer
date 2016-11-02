@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Dominic Rossillo on 10/24/2016.
  */
-public class CourseServices extends FdfCommonServices{
+public class CourseService extends FdfCommonServices{
 
     //save for Course model
     public Course saveCourse(Course course){

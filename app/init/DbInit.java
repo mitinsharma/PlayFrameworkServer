@@ -33,6 +33,8 @@ public class DbInit {
         FdfSettings.DB_PROTOCOL = DatabaseUtil.DatabaseProtocol.JDBC_MYSQL;
         FdfSettings.DB_ENCODING = DatabaseUtil.DatabaseEncoding.UTF8;
         FdfSettings.DB_HOST = "localhost";
+        FdfSettings.DB_ROOT_USER = "team2_root";
+        FdfSettings.DB_ROOT_PASSWORD = "isbestteam_root";
         FdfSettings.DB_USER = "team2";
         FdfSettings.DB_PASSWORD = "isbestteam";
         FdfSettings.DB_NAME = "mscs_lms";
@@ -41,15 +43,27 @@ public class DbInit {
         List<Class> myModel = new ArrayList<>();
 
         // Add model objects.
+        myModel.add(Assignment.class);
+        myModel.add(AssignmentPost.class);
         myModel.add(Course.class);
+        myModel.add(CourseSection.class);
         myModel.add(Department.class);
+        myModel.add(DepartmentCourse.class);
+        myModel.add(EnrollmentAction.class);
         myModel.add(Institution.class);
+        myModel.add(InstitutionDepartment.class);
         myModel.add(InstitutionTerm.class);
         myModel.add(LMS.class);
         myModel.add(MeetingTime.class);
+        myModel.add(Post.class);
         myModel.add(Section.class);
+        myModel.add(SectionPost.class);
+        myModel.add(SectionTerm.class);
+        myModel.add(SectionToMeetingTime.class);
         myModel.add(Term.class);
+        myModel.add(User.class);
         myModel.add(UserAccess.class);
+        myModel.add(UserPost.class);
 
         // Call the initialization of the library
         FdfServices.initializeFdfDataModel(myModel);
@@ -63,11 +77,11 @@ public class DbInit {
 
     private void serviceTest() {
         AccessService as = new AccessService();
-        CourseServices cs = new CourseServices();
+        CourseService cs = new CourseService();
         LmsService ls = new LmsService();
-        SectionServices ss = new SectionServices();
+        SectionService ss = new SectionService();
         TermService ts = new TermService();
-        UserServices us = new UserServices();
+        UserService us = new UserService();
 
         LMS lms = new LMS("team2-LMS");
         Institution marist = new Institution("Marist College");
@@ -84,7 +98,7 @@ public class DbInit {
     }
 
     private void userTest() {
-        UserServices us = new UserServices();
+        UserService us = new UserService();
         PostService ps = new PostService();
 
         User testStudent = new User("Student", "Test", "Student", "TestPass");

@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Mitin on 10/24/2016.
  */
-public class UserServices extends FdfCommonServices{
+public class UserService extends FdfCommonServices{
 
     public User saveUser(User newUser){
         if(getEntitiesByValueForPassedField(User.class, "userName", newUser.userName).size()<1){
