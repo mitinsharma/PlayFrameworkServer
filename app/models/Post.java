@@ -8,16 +8,15 @@ import com.fdflib.model.state.CommonState;
 public class Post extends CommonState {
 
     public String title, content;
-    public Integer userId;
 
     public Post()
     {
         super();
     }
-    public Post(String title, String content, int userId)
+    public Post(String title, String content)
     {
         this.title = title;
         this.content = content;
-        this.userId = userId;
+
     }
 }

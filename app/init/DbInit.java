@@ -100,19 +100,19 @@ public class DbInit {
         // User Post Tests
 
         // test student post
-        Post studentPost = new Post("Test student post", "Content of post", (int)testStudent.id);
+        Post studentPost = new Post("Test student post", "Content of post");
         ps.savePost(studentPost);
 
         // test admin post
-        Post adminPost = new Post("Test admin post", "Content of post", (int)testAdmin.id);
+        Post adminPost = new Post("Test admin post", "Content of post");
         ps.savePost(adminPost);
 
         // test faculty post
-        Post facultyPost = new Post("Test faculty post", "Content of post", (int)testFaculty.id);
+        Post facultyPost = new Post("Test faculty post", "Content of post");
         ps.savePost(facultyPost);
 
         // test ta post
-        Post taPost = new Post("Test ta post", "Content of post", (int)testTa.id);
+        Post taPost = new Post("Test ta post", "Content of post");
         ps.savePost(taPost);
 
 
