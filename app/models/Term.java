@@ -19,5 +19,4 @@ public class Term extends LmsAccessElement {
     public int year; // NOTE: Is this redundant with start/end date?
     public LocalDate startDate;
     public LocalDate endDate;
-
 }

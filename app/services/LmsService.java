@@ -10,9 +10,6 @@ import java.util.List;
  * Created by tsmanner on 10/22/2016.
  */
 public class LmsService extends FdfCommonServices {
-    /*
-     * Support functions for LMS objects
-     */
     public LMS saveLms(LMS lms) {
         // First thing first, if this guy's already in there, just do an update instead of a new add.
         List<FdfEntity<LMS>> lmsList = getLmsByName(lms.name);
