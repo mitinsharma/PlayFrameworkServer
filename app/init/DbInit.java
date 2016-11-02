@@ -85,19 +85,40 @@ public class DbInit {
 
     private void userTest() {
         UserServices us = new UserServices();
-
+        PostService ps = new PostService();
 
         User testStudent = new User("Student", "Test", "Student", "TestPass");
         User testAdmin = new User("Admin", "Test", "Admin", "TestPass");
         User testFaculty = new User("Faculty", "Test", "Faculty", "TestPass");
-        User testTA = new User("TA", "Test", "Ta", "TestPass");
+        User testTa = new User("TA", "Test", "Ta", "TestPass");
 
         us.saveUser(testStudent);
         us.saveUser(testAdmin);
         us.saveUser(testFaculty);
-        us.saveUser(testTA);
+        us.saveUser(testTa);
+
+        // User Post Tests
+
+        // test student post
+        Post studentPost = new Post("Test student post", "Content of post", (int)testStudent.id);
+        ps.savePost(studentPost);
+
+        // test admin post
+        Post adminPost = new Post("Test admin post", "Content of post", (int)testAdmin.id);
+        ps.savePost(adminPost);
+
+        // test faculty post
+        Post facultyPost = new Post("Test faculty post", "Content of post", (int)testFaculty.id);
+        ps.savePost(facultyPost);
+
+        // test ta post
+        Post taPost = new Post("Test ta post", "Content of post", (int)testTa.id);
+        ps.savePost(taPost);
+
 
     }
+
+
 /*
     private void accessTest() {
         AccessService as = new AccessService();
