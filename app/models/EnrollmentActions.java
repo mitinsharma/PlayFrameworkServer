@@ -13,14 +13,17 @@ public class EnrollmentActions extends CommonState {
 
     public Date date;
     public Formats.DateTime time;
+    public Long userId, sectionId;
 
     public EnrollmentActions()
     {
         super();
     }
 
-    public EnrollmentActions(Date d, Formats.DateTime t)
+    public EnrollmentActions(Long uid, Long sid, Date d, Formats.DateTime t)
     {
+        userId  = uid;
+        sectionId = sid;
         date=d;
         time=t;
     }

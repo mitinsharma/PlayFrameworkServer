@@ -6,32 +6,23 @@ import com.fdflib.model.state.CommonState;
  */
 public class User extends CommonState {
 
-    public String firstName, lastName, studentId, userName, password;
+    public String firstName, lastName, userName, password;
 
     public User()
     {
         super();
     }
 
-    public User(String fname,String lname, String sid, String uname, String pass)
+    public User(String fname,String lname, String uname, String pass)
     {
         super();
         firstName = fname;
         lastName = lname;
-        studentId = sid;
         userName = uname;
         password = pass;
 
     }
 
-    private void getPasswordHash(String password)
-    {
 
-    }
-
-    public void getClasses(int userId)
-    {
-
-    }
 
 }

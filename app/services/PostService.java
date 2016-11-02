@@ -83,4 +83,28 @@ public class PostService extends FdfCommonServices {
     public void undeleteUserPost(UserPost userPost) {
         removeDeleteFlag(UserPost.class, userPost.id, -1, -1);
     }
+
+
+    //Load all posts
+    public List<Post> getAllPosts(){
+        return this.getAllCurrent(Post.class);
+
+    }
+
+    public List<FdfEntity<Post>> getAllPostsWithHistory() {
+        return this.getAll(Post.class);
+    }
+
+    //get Post by id
+    public Post getUserByPostId(Long id){
+        return getEntityCurrentById(Post.class,id);
+    }
+
+    public void deletePost(Post post) {
+        setDeleteFlag(Post.class, post.id, -1, -1);
+    }
+
+    public void undeletePost(Post post) {
+        removeDeleteFlag(Post.class, post.id, -1, -1);
+    }
 }
