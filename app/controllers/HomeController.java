@@ -21,4 +21,14 @@ public class HomeController extends Controller {
         return ok("Your new application is ready");
     }
 
+    public Result testRoute(String line) {
+        System.out.println(line);
+        return ok("Hello Route!");
+    }
+
+    public Result testRoute2(String line1, String line2) {
+        System.out.println(line1);
+        System.out.println(line2);
+        return ok("Hello Route2!");
+    }
 }

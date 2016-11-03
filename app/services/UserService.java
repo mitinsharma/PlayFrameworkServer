@@ -17,7 +17,7 @@ public class UserService extends FdfCommonServices{
             save(User.class,newUser);
         }
         else {
-            newUser.id=getEntitiesByValueForPassedField(User.class, "name", newUser.userName).get(0).entityId;
+            newUser.id=getEntitiesByValueForPassedField(User.class, "userName", newUser.userName).get(0).entityId;
             newUser.cf=true;
             save(User.class, newUser);
         }

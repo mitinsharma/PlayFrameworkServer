@@ -44,7 +44,6 @@ public class DbInit {
 
         // Add model objects.
         myModel.add(Assignment.class);
-        myModel.add(AssignmentPost.class);
         myModel.add(Course.class);
         myModel.add(CourseSection.class);
         myModel.add(Department.class);
@@ -71,8 +70,15 @@ public class DbInit {
         serviceTest();
 
         userTest();
+    }
 
-        //accessTest();
+    /**
+     * Create an Assignment as STUDENT.
+     * Apply a grade as TA
+     * Apply a grade as FACULTY
+     */
+    private void assigmentTest() {
+
     }
 
     private void serviceTest() {
@@ -131,16 +137,4 @@ public class DbInit {
 
 
     }
-
-
-/*
-    private void accessTest() {
-        AccessService as = new AccessService();
-
-        UserAccess testUserStudent = new UserAccess(001, 01, AccessLevel.STUDENT);
-
-        as.saveUserAccess(testUserStudent);
-
-    }
-*/
 }

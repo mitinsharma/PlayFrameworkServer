@@ -2,6 +2,7 @@ package services;
 
 import com.fdflib.model.entity.FdfEntity;
 import com.fdflib.service.impl.FdfCommonServices;
+import models.Assignment;
 import models.Post;
 import models.SectionPost;
 import models.UserPost;
@@ -14,10 +15,14 @@ import java.util.List;
  */
 public class PostService extends FdfCommonServices {
 
-    public Post savePost(Post newPost)
-    {
-        save(Post.class,newPost);
-        return newPost;
+    public Post savePost(Post post) {
+        save(Post.class, post);
+        return post;
+    }
+
+    public Assignment saveAssignment(Assignment assignment) {
+        save(Assignment.class, assignment);
+        return assignment;
     }
 
     /**
@@ -84,11 +89,9 @@ public class PostService extends FdfCommonServices {
         removeDeleteFlag(UserPost.class, userPost.id, -1, -1);
     }
 
-
     //Load all posts
-    public List<Post> getAllPosts(){
+    public List<Post> getAllPosts() {
         return this.getAllCurrent(Post.class);
-
     }
 
     public List<FdfEntity<Post>> getAllPostsWithHistory() {
@@ -97,7 +100,7 @@ public class PostService extends FdfCommonServices {
 
     //get Post by id
     public Post getUserByPostId(Long id){
-        return getEntityCurrentById(Post.class,id);
+        return getEntityCurrentById(Post.class, id);
     }
 
     public void deletePost(Post post) {
