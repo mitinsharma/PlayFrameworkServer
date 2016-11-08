@@ -73,14 +73,8 @@ public class DbInit {
     }
 
     /**
-     * Create an Assignment as STUDENT.
-     * Apply a grade as TA
-     * Apply a grade as FACULTY
+     * serviceTest calls all the model test methods
      */
-    private void assigmentTest() {
-
-    }
-
     private void serviceTest() {
         AccessService as = new AccessService();
         CourseService cs = new CourseService();
@@ -103,6 +97,84 @@ public class DbInit {
         ls.saveLms(lms);
     }
 
+    /**
+     * Create an Assignment as STUDENT.
+     * Associate it with a Section
+     * Apply a grade as TA
+     * Apply a grade as FACULTY
+     */
+    private void assigmentTest() {
+
+    }
+
+    /**
+     * Create a Course
+     * Associate it with a Department
+     *     as an ADMINISTRATOR/FACULTY/TA/STUDENT?
+     */
+    private void courseTest() {
+
+    }
+
+    /**
+     * Create a Department
+     * Associate it with an Institution
+     *     as an ADMINISTRATOR/FACULTY/TA/STUDENT?
+     */
+    private void departmentTest() {
+
+    }
+
+    /**
+     * Create some EnrollmentActions
+     * Associate them with a User
+     * Associate them with a Section(or two)
+     */
+    private void entrollmentActionTest() {
+
+    }
+
+    /**
+     * Create an Institution
+     * Associate it with an LMS
+     */
+    private void institutionTest() {
+
+    }
+
+    /**
+     * Create some Posts
+     * Associate them with a Section
+     * Associate them with a STUDENT, TA, FACULTY, and ADMINISTRATOR
+     */
+    private void postTest() {
+
+    }
+
+    /**
+     * Create a Section
+     * Associate it with a Course
+     * Associate it with some MeetingTimes
+     * Associate it with a Term
+     */
+    private void sectionTest() {
+
+    }
+
+    /**
+     * Create a Term
+     * Associate it with an Institution
+     * Associate it with some Sections
+     */
+    private void termTest() {
+
+    }
+
+    /**
+     * Create some Users
+     * Associate them with some EnrollmentActions(student<->section)
+     * Get a class(section) list
+     */
     private void userTest() {
         UserService us = new UserService();
         PostService ps = new PostService();
@@ -134,7 +206,5 @@ public class DbInit {
         // test ta post
         Post taPost = new Post("Test ta post", "Content of post");
         ps.savePost(taPost);
-
-
     }
 }
