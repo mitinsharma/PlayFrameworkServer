@@ -117,10 +117,9 @@ public class DbInit {
         UserAccess sectionStudent = new UserAccess(student.id, section.id, AccessLevel.STUDENT);
         UserAccess sectionTa = new UserAccess(ta.id, section.id, AccessLevel.TA);
         UserAccess sectionFaculty = new UserAccess(faculty.id, section.id, AccessLevel.FACULTY);
-        section.userAccesses.add(sectionStudent);
-        section.userAccesses.add(sectionTa);
-        section.userAccesses.add(sectionFaculty);
-        section.userAccesses.forEach(accessService::saveUserAccess);
+        accessService.saveUserAccess(sectionStudent);
+        accessService.saveUserAccess(sectionTa);
+        accessService.saveUserAccess(sectionFaculty);
 
         List<Assignment> assignments = new ArrayList<>();
         Assignment a1 = new Assignment(60, "Stan's Essay",

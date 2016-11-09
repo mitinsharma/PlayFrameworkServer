@@ -45,13 +45,17 @@ public class PostService extends FdfCommonServices {
     public void undeleteAssignment(Assignment assignment) { removeDeleteFlag(Assignment.class, assignment.id, -1, -1); }
 
     public boolean gradeAssignment(long userId, long assignmentId, float grade) {
+        AccessService accessService = new AccessService();
         SectionService sectionService = new SectionService();
         Assignment assignment = getAssignmentById(assignmentId);
         Section section = sectionService.getSectionById(assignment.sectionId);
-        if(section.isAuthorized(userId, FACULTY) || section.isAuthorized(userId, TA)) {
-            assignment.score = grade;
-            saveAssignment(assignment);
-            return true;
+        if(section != null){
+            if(accessService.isAuthorized(section.id, userId, FACULTY) ||
+                    accessService.isAuthorized(section.id, userId, TA)) {
+                assignment.score = grade;
+                saveAssignment(assignment);
+                return true;
+            }
         }
         return false;
     }
