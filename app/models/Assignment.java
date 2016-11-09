@@ -7,16 +7,11 @@ public class Assignment extends Post {
 
     public int pointMax;
     public float score;
-    String content;
 
-    public Assignment()
-    {
-        super();
-    }
-    public Assignment(int pointMax, float score, String content)
-    {
+    public Assignment() { super(); }
+    public Assignment(int pointMax, String inTitle, String inContent, long inSectionId) {
+        super(inTitle, inContent, inSectionId);
         this.pointMax = pointMax;
-        this.score = score;
-        this.content = content;
+        this.score = 0;
     }
 }

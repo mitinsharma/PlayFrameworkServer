@@ -24,41 +24,18 @@ public class UserService extends FdfCommonServices{
         return newUser;
     }
 
-    //load all current for User
-    public List<User> getAllUserss(){
-        return this.getAllCurrent(User.class);
-
-    }
-
+    public List<User> getAllUserss() { return this.getAllCurrent(User.class); }
     public List<FdfEntity<User>> getAllUsersWithHistory() {
         return this.getAll(User.class);
     }
 
-    public User getUserByuserName(String userName){
+    public User getUserByUserName(String userName){
         List <FdfEntity<User>> tarUser= getEntitiesByValueForPassedField(User.class, "userName", userName);
         return tarUser.get(0).current;
-
     }
 
-    //get user by id
-    public User getUserByUserId(Long id){
-        return getEntityCurrentById(User.class,id);
-    }
-
+    public User getUserByUserId(Long id) { return getEntityCurrentById(User.class,id); }
     public void deleteUser(Long id) { setDeleteFlag(User.class,id,-1,-1); }
-    public void undeleteUser(Long id){
-        removeDeleteFlag(User.class,id,-1,-1);
-    }
-
-
-    private String getPasswordHash(String password)
-    {
-        return DigestUtils.sha1Hex(password);
-    }
-
-    public void getClasses(Long id)
-    {
-
-    }
-
+    public void undeleteUser(Long id) { removeDeleteFlag(User.class,id,-1,-1); }
+    private String getPasswordHash(String password) { return DigestUtils.sha1Hex(password); }
 }

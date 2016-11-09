@@ -14,7 +14,6 @@ import java.util.List;
  */
 public class CourseService extends FdfCommonServices{
 
-    //save for Course model
     public Course saveCourse(Course course){
         if(getEntitiesByValueForPassedField(Course.class, "name", course.name).size()<1){
             save(Course.class,course);
@@ -27,31 +26,19 @@ public class CourseService extends FdfCommonServices{
         return course;
     }
 
-    //load all current for Course
-    public List<Course> getAllCourses(){
-        return this.getAllCurrent(Course.class);
+    public List<Course> getAllCourses() { return this.getAllCurrent(Course.class); }
 
-    }
-
-    public List<FdfEntity<Course>> getAllCoursesWithHistory() {
-        return this.getAll(Course.class);
-    }
+    public List<FdfEntity<Course>> getAllCoursesWithHistory() { return this.getAll(Course.class); }
 
     public Course getCourseByName(String name){
         List <FdfEntity<Course>> tarUser= getEntitiesByValueForPassedField(Course.class, "name", name);
         return tarUser.get(0).current;
-
     }
 
-    //get course by id
-    public Course getCourseByUserId(Long id){
-        return getEntityCurrentById(Course.class,id);
-    }
+    public Course getCourseByUserId(Long id) { return getEntityCurrentById(Course.class, id); }
 
     public void deleteCourse(Long id) { setDeleteFlag(Course.class,id,-1,-1); }
-    public void undeleteCourse(Long id){
-        removeDeleteFlag(Course.class,id,-1,-1);
-    }
+    public void undeleteCourse(Long id) { removeDeleteFlag(Course.class,id,-1,-1); }
 
     /**
      * CourseSection services

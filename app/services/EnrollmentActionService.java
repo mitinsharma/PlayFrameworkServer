@@ -10,49 +10,31 @@ import java.util.List;
  * Created by Mitin on 10/26/2016.
  */
 public class EnrollmentActionService extends FdfCommonServices {
-
-
-    //having doubts - need AND condition
-
-    public EnrollmentAction saveEAS(EnrollmentAction newEas)
-    {
-        save(EnrollmentAction.class, newEas);
-        return newEas;
+    public EnrollmentAction saveEnrollmentAction(EnrollmentAction enrollmentAction) {
+        save(EnrollmentAction.class, enrollmentAction);
+        return enrollmentAction;
     }
-
-    //Load all enrollments
 
     public List<EnrollmentAction> getAllEnrollments(){
         return this.getAllCurrent(EnrollmentAction.class);
-
     }
 
     public List<FdfEntity<EnrollmentAction>> getAllEnrollmentsWithHistory() {
         return this.getAll(EnrollmentAction.class);
     }
 
-    //Get Enrollment by userId
-    public EnrollmentAction getEnrollmentByuserId(String uid){
-        List <FdfEntity<EnrollmentAction>> tarEnroll= getEntitiesByValueForPassedField(EnrollmentAction.class, "userId", uid);
+    public EnrollmentAction getEnrollmentByUserId(long userId){
+        List <FdfEntity<EnrollmentAction>> tarEnroll =
+                getEntitiesByValueForPassedField(EnrollmentAction.class, "userId", Long.toString(userId));
         return tarEnroll.get(0).current;
-
     }
 
-    //get user by id
-    public EnrollmentAction getUserById(Long id){
-        return getEntityCurrentById(EnrollmentAction.class,id);
+    public void deleteEnrollmentActions(Long id) { setDeleteFlag(EnrollmentAction.class, id, -1, -1); }
+    public void undeleteEnrollmentActions(Long id) { removeDeleteFlag(EnrollmentAction.class, id, -1, -1); }
+
+    public void saveEnrollmentActionsForSection(long sectionId, List<EnrollmentAction> enrollmentActions) {
     }
 
-
-    public void deleteEnrollmentActions(Long id) { setDeleteFlag(EnrollmentAction.class,id,-1,-1); }
-    public void undeleteEnrollmentActions(Long id){
-        removeDeleteFlag(EnrollmentAction.class,id,-1,-1);
+    public void saveEnrollmentActionsForUser(long userId, List<EnrollmentAction> enrollmentActions) {
     }
-
-
-    public void saveUserForSections()
-    {
-
-    }
-
 }

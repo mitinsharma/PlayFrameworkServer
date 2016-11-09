@@ -68,7 +68,7 @@ public class DbInit {
         FdfServices.initializeFdfDataModel(myModel);
 
         serviceTest();
-
+        assigmentTest();
         userTest();
     }
 
@@ -104,7 +104,42 @@ public class DbInit {
      * Apply a grade as FACULTY
      */
     private void assigmentTest() {
+        AccessService accessService = new AccessService();
+        PostService postService = new PostService();
+        SectionService sectionService = new SectionService();
+        UserService userService = new UserService();
 
+        User student = new User("Stan", "Student", "sstudent", "hashtagswag");
+        User ta = new User("Tony", "TeeAy", "tteeay", "powertrippin");
+        User faculty = new User("Frank", "Faculty", "ffaculty", "TheMan");
+
+        Section section = new Section("TestSection", 1);
+        UserAccess sectionStudent = new UserAccess(student.id, section.id, AccessLevel.STUDENT);
+        UserAccess sectionTa = new UserAccess(ta.id, section.id, AccessLevel.TA);
+        UserAccess sectionFaculty = new UserAccess(faculty.id, section.id, AccessLevel.FACULTY);
+        section.userAccesses.add(sectionStudent);
+        section.userAccesses.add(sectionTa);
+        section.userAccesses.add(sectionFaculty);
+        section.userAccesses.forEach(accessService::saveUserAccess);
+
+        List<Assignment> assignments = new ArrayList<>();
+        Assignment a1 = new Assignment(60, "Stan's Essay",
+                "Pretend this is an essay or something", section.id);
+        Assignment a2 = new Assignment(100, "Stan's Lab",
+                "Some lab that the TA has to grade", section.id);
+        assignments.add(a1);
+        assignments.add(a2);
+
+        userService.saveUser(student);
+        userService.saveUser(ta);
+        userService.saveUser(faculty);
+        sectionService.saveSection(section);
+        assignments.forEach(postService::saveAssignment);
+        postService.saveAssignmentsForUser(section.id, assignments);
+        postService.saveAssignmentsForSection(section.id, assignments);
+
+        postService.gradeAssignment(faculty.id, a1.id, 53);
+        postService.gradeAssignment(ta.id, a2.id, 87);
     }
 
     /**
@@ -192,19 +227,19 @@ public class DbInit {
         // User Post Tests
 
         // test student post
-        Post studentPost = new Post("Test student post", "Content of post");
+        Post studentPost = new Post("Test student post", "Content of post", -1);
         ps.savePost(studentPost);
 
         // test admin post
-        Post adminPost = new Post("Test admin post", "Content of post");
+        Post adminPost = new Post("Test admin post", "Content of post", -1);
         ps.savePost(adminPost);
 
         // test faculty post
-        Post facultyPost = new Post("Test faculty post", "Content of post");
+        Post facultyPost = new Post("Test faculty post", "Content of post", -1);
         ps.savePost(facultyPost);
 
         // test ta post
-        Post taPost = new Post("Test ta post", "Content of post");
+        Post taPost = new Post("Test ta post", "Content of post", -1);
         ps.savePost(taPost);
     }
 }

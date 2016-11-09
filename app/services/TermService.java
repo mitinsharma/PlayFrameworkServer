@@ -29,7 +29,7 @@ public class TermService extends FdfCommonServices {
     public List<FdfEntity<Term>> getTermByName(String name) {
         return getEntitiesByValueForPassedField(Term.class, "name", name);
     }
-    //get current term
+
     public Term getAllTerms() { return this.getAllCurrent(Term.class).get(0); }
 
     public List<FdfEntity<Term>> getAllTermsWithHistory() { return this.getAll(Term.class); }
@@ -93,9 +93,7 @@ public class TermService extends FdfCommonServices {
         return getEntitiesByValuesForPassedFields(SectionTerm.class, fieldsAndValues);
     }
 
-    public void deleteSectionTerm(SectionTerm sectionTerm) {
-        setDeleteFlag(SectionTerm.class, sectionTerm.id, -1, -1);
-    }
+    public void deleteSectionTerm(SectionTerm sectionTerm) { setDeleteFlag(SectionTerm.class, sectionTerm.id, -1, -1); }
 
     public void undeleteSectionTerm(SectionTerm sectionTerm) {
         removeDeleteFlag(SectionTerm.class, sectionTerm.id, -1, -1);
