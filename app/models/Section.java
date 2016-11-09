@@ -10,7 +10,7 @@ import java.util.Date;
 public class Section extends LmsAccessElement {
 
     public String name;
-    public int code;
+    public int sectionNumber;
     public boolean published;
     protected Date puslishDate;
     public  Formats.DateTime[] meetingTimes;

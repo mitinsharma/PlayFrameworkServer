@@ -16,12 +16,12 @@ public class SectionServices extends FdfCommonServices {
     public Section saveSection(Section newSection){
 
         if(getEntitiesByValueForPassedField(Section.class, "name", newSection.name).size()<1
-                && getEntitiesByValueForPassedField(Section.class, "code", Integer.toString(newSection.code)).size()<1){
+                && getEntitiesByValueForPassedField(Section.class, "sectionNumber", Integer.toString(newSection.sectionNumber)).size()<1){
             save(Section.class,newSection);
 
         }
         else {
-            FdfEntity<Section> oldSection =getSectionByNameAndCode(newSection.name,newSection.code);
+            FdfEntity<Section> oldSection =getSectionByNameAndCode(newSection.name,newSection.sectionNumber);
             newSection.id=oldSection.entityId;
             newSection.cf=true;
             save(Section.class, newSection);
@@ -42,8 +42,8 @@ public class SectionServices extends FdfCommonServices {
     }
 
     //get Section by code
-    public Section getSectionByCode(String code){
-        List <FdfEntity<Section>> tarSection= getEntitiesByValueForPassedField(Section.class, "code", code);
+    public Section getSectionByCode(String sectionNumber){
+        List <FdfEntity<Section>> tarSection= getEntitiesByValueForPassedField(Section.class, "sectionNumber", sectionNumber);
         return tarSection.get(0).current;
 
     }
@@ -62,10 +62,10 @@ public class SectionServices extends FdfCommonServices {
 
 
     //get Section by name and code
-    public FdfEntity<Section> getSectionByNameAndCode(String name, int code) {
+    public FdfEntity<Section> getSectionByNameAndCode(String name, int sectionNumber) {
         HashMap<String, String> fieldsAndValues = new HashMap<>();
         fieldsAndValues.put("name", name);
-        fieldsAndValues.put("code", Integer.toString(code));
+        fieldsAndValues.put("sectionNumber", Integer.toString(sectionNumber));
 
 
         List<FdfEntity<Section>> tarSection =
