@@ -1,25 +1,17 @@
 package models;
 
-import com.fdflib.model.state.CommonState;
-
 /**
  * Created by Mitin on 10/19/2016.
  */
-public class Assignment extends CommonState {
+public class Assignment extends Post {
 
-    public int postId, pointMax;
+    public int pointMax;
     public float score;
-    String content;
 
-    public Assignment()
-    {
-        super();
-    }
-    public Assignment(int postId, int pointMax, float score, String content)
-    {
-        this.postId = postId;
+    public Assignment() { super(); }
+    public Assignment(int pointMax, String inTitle, String inContent, long inSectionId) {
+        super(inTitle, inContent, inSectionId);
         this.pointMax = pointMax;
-        this.score = score;
-        this.content = content;
+        this.score = 0;
     }
 }
