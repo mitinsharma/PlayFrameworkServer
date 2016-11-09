@@ -112,8 +112,13 @@ public class DbInit {
         User student = new User("Stan", "Student", "sstudent", "hashtagswag");
         User ta = new User("Tony", "TeeAy", "tteeay", "powertrippin");
         User faculty = new User("Frank", "Faculty", "ffaculty", "TheMan");
-
         Section section = new Section("TestSection", 1);
+
+        userService.saveUser(student);
+        userService.saveUser(ta);
+        userService.saveUser(faculty);
+        sectionService.saveSection(section);
+
         UserAccess sectionStudent = new UserAccess(student.id, section.id, AccessLevel.STUDENT);
         UserAccess sectionTa = new UserAccess(ta.id, section.id, AccessLevel.TA);
         UserAccess sectionFaculty = new UserAccess(faculty.id, section.id, AccessLevel.FACULTY);
@@ -129,14 +134,11 @@ public class DbInit {
         assignments.add(a1);
         assignments.add(a2);
 
-        userService.saveUser(student);
-        userService.saveUser(ta);
-        userService.saveUser(faculty);
-        sectionService.saveSection(section);
         assignments.forEach(postService::saveAssignment);
         postService.saveAssignmentsForUser(section.id, assignments);
         postService.saveAssignmentsForSection(section.id, assignments);
 
+        postService.gradeAssignment(student.id, a1.id, 60);
         postService.gradeAssignment(faculty.id, a1.id, 53);
         postService.gradeAssignment(ta.id, a2.id, 87);
     }

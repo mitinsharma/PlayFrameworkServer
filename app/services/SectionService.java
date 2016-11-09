@@ -12,7 +12,6 @@ import java.util.List;
  */
 public class SectionService extends FdfCommonServices {
     public Section saveSection(Section newSection) {
-        save(Section.class, newSection);/*
         if(getEntitiesByValueForPassedField(Section.class, "name", newSection.name).size()<1
 <<<<<<< HEAD:app/services/SectionServices.java
                 && getEntitiesByValueForPassedField(Section.class, "sectionNumber", Integer.toString(newSection.sectionNumber)).size()<1){
@@ -31,7 +30,7 @@ public class SectionService extends FdfCommonServices {
             newSection.id=oldSection.entityId;
             newSection.cf=true;
             save(Section.class, newSection);
-        }*/
+        }
         return newSection;
     }
 
