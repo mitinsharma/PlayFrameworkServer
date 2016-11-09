@@ -13,11 +13,20 @@ import java.util.List;
 public class SectionService extends FdfCommonServices {
     public Section saveSection(Section newSection) {
         if(getEntitiesByValueForPassedField(Section.class, "name", newSection.name).size()<1
+<<<<<<< HEAD:app/services/SectionServices.java
+                && getEntitiesByValueForPassedField(Section.class, "sectionNumber", Integer.toString(newSection.sectionNumber)).size()<1){
+            save(Section.class,newSection);
+
+        }
+        else {
+            FdfEntity<Section> oldSection =getSectionByNameAndCode(newSection.name,newSection.sectionNumber);
+=======
                 && getEntitiesByValueForPassedField(Section.class, "code", Integer.toString(newSection.code)).size()<1) {
             save(Section.class, newSection);
         }
         else {
             FdfEntity<Section> oldSection = getSectionByNameAndCode(newSection.name,newSection.code);
+>>>>>>> 65ad000e839fb5381bd6c9b353f81705327fe59a:app/services/SectionService.java
             newSection.id=oldSection.entityId;
             newSection.cf=true;
             save(Section.class, newSection);
@@ -29,8 +38,21 @@ public class SectionService extends FdfCommonServices {
 
     public List<FdfEntity<Section>> getAllSectionsWithHistory() { return this.getAll(Section.class); }
 
+<<<<<<< HEAD:app/services/SectionServices.java
+    }
+
+    //get all Sections with history
+    public List<FdfEntity<Section>> getAllSectionWithHistory() {
+        return this.getAll(Section.class);
+    }
+
+    //get Section by code
+    public Section getSectionByCode(String sectionNumber){
+        List <FdfEntity<Section>> tarSection= getEntitiesByValueForPassedField(Section.class, "sectionNumber", sectionNumber);
+=======
     public Section getSectionByCode(String code){
         List <FdfEntity<Section>> tarSection= getEntitiesByValueForPassedField(Section.class, "code", code);
+>>>>>>> 65ad000e839fb5381bd6c9b353f81705327fe59a:app/services/SectionService.java
         return tarSection.get(0).current;
     }
 
@@ -41,10 +63,21 @@ public class SectionService extends FdfCommonServices {
 
     public Section getSectionById(Long id) { return getEntityCurrentById(Section.class,id); }
 
+<<<<<<< HEAD:app/services/SectionServices.java
+
+    //get Section by name and code
+    public FdfEntity<Section> getSectionByNameAndCode(String name, int sectionNumber) {
+        HashMap<String, String> fieldsAndValues = new HashMap<>();
+        fieldsAndValues.put("name", name);
+        fieldsAndValues.put("sectionNumber", Integer.toString(sectionNumber));
+
+
+=======
     public FdfEntity<Section> getSectionByNameAndCode(String name, int code) {
         HashMap<String, String> fieldsAndValues = new HashMap<>();
         fieldsAndValues.put("name", name);
         fieldsAndValues.put("code", Integer.toString(code));
+>>>>>>> 65ad000e839fb5381bd6c9b353f81705327fe59a:app/services/SectionService.java
         List<FdfEntity<Section>> tarSection =
                 getEntitiesByValuesForPassedFields(Section.class, fieldsAndValues);
         return tarSection.get(0);
