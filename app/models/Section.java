@@ -1,8 +1,5 @@
 package models;
 
-import org.joda.time.DateTime;
-import play.data.format.Formats;
-
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +11,7 @@ public class Section extends LmsAccessElement {
     public Section(String inName, int inCode) {
         super();
         name = inName;
-        code = inCode;
+        sectionNumber = inCode;
         published = false;
     }
 
