@@ -1,5 +1,6 @@
 package controllers;
 
+import init.DbInit;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -31,4 +32,10 @@ public class HomeController extends Controller {
         System.out.println(line2);
         return ok("Hello Route2!");
     }
+
+    public Result serviceTest() {
+        DbInit.getInstance().assigmentTest();
+        return ok("Service Test Complete.");
+    }
+
 }

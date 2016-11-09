@@ -23,6 +23,13 @@ import java.util.logging.Logger;
 public class DbInit {
     private static Logger logger = Logger.getLogger("app.init.DbInit");
 
+    private static DbInit sInstance;
+
+    public static DbInit getInstance() {
+        if(sInstance == null) sInstance = new DbInit(Environment.simple());
+        return sInstance;
+    }
+
     @Inject
     DbInit(Environment env) {
         logger.info("Team2 LMS Start");
@@ -67,9 +74,9 @@ public class DbInit {
         // Call the initialization of the library
         FdfServices.initializeFdfDataModel(myModel);
 
-        serviceTest();
+//        serviceTest();
         assigmentTest();
-        userTest();
+//        userTest();
     }
 
     /**
@@ -103,7 +110,7 @@ public class DbInit {
      * Apply a grade as TA
      * Apply a grade as FACULTY
      */
-    private void assigmentTest() {
+    public void assigmentTest() {
         AccessService accessService = new AccessService();
         PostService postService = new PostService();
         SectionService sectionService = new SectionService();
