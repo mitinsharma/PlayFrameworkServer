@@ -12,10 +12,20 @@ GET     /servicetest                controllers.HomeController.serviceTest()
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 
-# Mapping routes for Course Controller
+# Mapping routes for Course Controller, course
 GET     /getAllCourses                          controllers.CourseController.getAllCourses()
 GET     /getCourseByName/:courseName          controllers.CourseController.getCourseByName(courseName: String)
 GET     /getCourseSectionByIds/:courseId/:sectionId          controllers.CourseController.getCourseSectionByIds(courseId: long,sectionId: long)
 
 POST    /saveCourse                             controllers.CourseController.saveCourse()
+
+#routes for course controller, section
+GET     /getAllSections                          controllers.CourseController.getAllSections()
+GET     /getAllSectionsWithHistory               controllers.CourseController.getAllSectionsWithHistory()
+GET     /getSectionByNumber/:sectionNumber       controllers.CourseController.getSectionByNumber(sectionNumber: String)
+GET     /getSectionByCourseName/:courseName      controllers.CourseController.getSectionByCourseName(courseName: String)
+GET     /getSectionById/:sectionId               controllers.CourseController.getSectionById(sectionId: long)
+GET     /getSectionByNameAndNumber/:name/:sectionNumber      controllers.CourseController.getSectionById(name: String,sectionNumber: int)
+
+POST    /saveSection                            controllers.CourseController.saveSection()
 POST    /saveSectionForCourse/:courseId/:sectionList      controllers.CourseController.saveSectionForCourse(courseId: long,sectionList: List<Section>)
