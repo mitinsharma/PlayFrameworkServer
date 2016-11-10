@@ -15,3 +15,7 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 # Mapping routes for Course Controller
 GET     /getAllCourses                          controllers.CourseController.getAllCourses()
 GET     /getCourseByName/:courseName          controllers.CourseController.getCourseByName(courseName: String)
+GET     /getCourseSectionByIds/:courseId/:sectionId          controllers.CourseController.getCourseSectionByIds(courseId: long,sectionId: long)
+
+POST    /saveCourse                             controllers.CourseController.saveCourse()
+POST    /saveSectionForCourse/:courseId/:sectionList      controllers.CourseController.saveSectionForCourse(courseId: long,sectionList: List<Section>)
