@@ -111,39 +111,95 @@ public class DbInit {
      *
      */
     public void userTest() {
+        /*
+         * Setup all required services
+         */
         AccessService accessService = AccessService.getInstance();
+        EnrollmentActionService enrollmentActionService = new EnrollmentActionService();
         PostService postService = new PostService();
         SectionService sectionService = new SectionService();
         UserService userService = new UserService();
 
-        User student = new User("Stan", "Student", "sstudent", "hashtagswag");
-        User ta = new User("Tony", "TeeAy", "tteeay", "powertrippin");
-        User faculty = new User("Frank", "Faculty", "ffaculty", "TheMan");
+        /*
+         * Setup and save the required LMS Elements(just a section)
+         */
         Section section = new Section("TestSection", 1);
-
-        userService.saveUser(student);
-        userService.saveUser(ta);
-        userService.saveUser(faculty);
         sectionService.saveSection(section);
 
+        /*
+         * Setup and save some users
+         */
+        User student = new User("Stan", "Student", "sstudent", "hashtagswag");
+        userService.saveUser(student);
+        User ta = new User("Tony", "TeeAy", "tteeay", "powertrippin");
+        userService.saveUser(ta);
+        User faculty = new User("Frank", "Faculty", "ffaculty", "TheMan");
+        userService.saveUser(faculty);
+        User administrator = new User("Adam", "Administrator", "aadmin", "TheMansBoss");
+        userService.saveUser(administrator);
+
+        /*
+         * Setup and save the access levels
+         */
         UserAccess sectionStudent = new UserAccess(student.id, section.id, AccessLevel.STUDENT);
         UserAccess sectionTa = new UserAccess(ta.id, section.id, AccessLevel.TA);
         UserAccess sectionFaculty = new UserAccess(faculty.id, section.id, AccessLevel.FACULTY);
+        UserAccess sectionAdminstrator = new UserAccess(administrator.id, section.id, AccessLevel.ADMINISTRATOR);
         accessService.saveUserAccess(sectionStudent);
         accessService.saveUserAccess(sectionTa);
         accessService.saveUserAccess(sectionFaculty);
+        accessService.saveUserAccess(sectionAdminstrator);
 
-        List<Assignment> assignments = new ArrayList<>();
-        Assignment a1 = new Assignment(60, "Stan's Essay",
+        /*
+         * Test interacting with some assignments
+         */
+        Assignment sa1 = new Assignment(60, "Stan's Essay",
                 "Pretend this is an essay or something", section.id);
-        Assignment a2 = new Assignment(100, "Stan's Lab",
+        Assignment sa2 = new Assignment(100, "Stan's Lab",
                 "Some lab that the TA has to grade", section.id);
+        Assignment ta1 = new Assignment(100, "Tony's Assignment",
+                "Silly TA... Assignments are for kids!", section.id);
+        Assignment fa1 = new Assignment(100, "Frank's Assignment",
+                "Silly faculty... Assignments are for kids!", section.id);
+        Assignment aa1 = new Assignment(100, "Adam's Assignment",
+                "Silly administrator... Assignments are for kids!", section.id);
 
-        postService.submitAssignment(student.id, section.id, a1);
-        postService.submitAssignment(student.id, section.id, a2);
+        // TODO: Have assignment/post submission setup the Post[User/Section] relationships
+        // These should get saved
+        postService.submitAssignment(student.id, sa1);
+        postService.submitAssignment(student.id, sa2);
+        // These should not
+        postService.submitAssignment(ta.id, fa1);
+        postService.submitAssignment(faculty.id, fa1);
+        postService.submitAssignment(administrator.id, fa1);
 
-        postService.gradeAssignment(student.id, a1.id, 60);
-        postService.gradeAssignment(faculty.id, a1.id, 53);
-        postService.gradeAssignment(ta.id, a2.id, 87);
+        // These shouldn't be applied
+        postService.gradeAssignment(student.id, sa1.id, 60);
+        postService.gradeAssignment(administrator.id, sa2.id, 0); // He's a jerk
+        // These should
+        postService.gradeAssignment(faculty.id, sa1.id, 53);
+        postService.gradeAssignment(ta.id, sa2.id, 87);
+
+        // TODO: Make some posts and save them.
+        //    Have the submission create relationships.
+        //    Make UserAssignment and SectionAssignment relationship objects and add them to the model.
+        /*
+         * Test interacting with enrollment
+         *     This block should do the following:
+         *     ADD -> DROP -> ADD -> DROP
+         */
+        // This should add then drop student
+        enrollmentActionService.enrollSelf(student.id, section.id);
+        enrollmentActionService.disenrollSelf(student.id, section.id);
+        // This should add then drop student ONCE
+        enrollmentActionService.enrollOther(administrator.id, student.id, section.id);
+        enrollmentActionService.enrollOther(administrator.id, student.id, section.id);
+        enrollmentActionService.disenrollOther(administrator.id, student.id, section.id);
+        enrollmentActionService.disenrollOther(administrator.id, student.id, section.id);
+        // These should have no effect
+        enrollmentActionService.enrollOther(faculty.id, student.id, section.id);
+        enrollmentActionService.disenrollOther(faculty.id, student.id, section.id);
+        enrollmentActionService.enrollOther(ta.id, student.id, section.id);
+        enrollmentActionService.disenrollOther(ta.id, student.id, section.id);
     }
 }

@@ -45,8 +45,8 @@ public class PostService extends FdfCommonServices {
     public void deleteAssignment(Assignment assignment) { setDeleteFlag(Assignment.class, assignment.id, -1, -1); }
     public void undeleteAssignment(Assignment assignment) { removeDeleteFlag(Assignment.class, assignment.id, -1, -1); }
 
-    public boolean submitAssignment(long userId, long sectionId, Assignment assignment) {
-        if(AccessService.getInstance().isAuthorized(sectionId, userId, STUDENT)) {
+    public boolean submitAssignment(long userId, Assignment assignment) {
+        if(AccessService.getInstance().isAuthorized(assignment.sectionId, userId, STUDENT)) {
             saveAssignment(assignment);
             return true;
         }

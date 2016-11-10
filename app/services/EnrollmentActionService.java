@@ -2,8 +2,13 @@ package services;
 
 import com.fdflib.model.entity.FdfEntity;
 import com.fdflib.service.impl.FdfCommonServices;
+import models.AccessLevel;
 import models.EnrollmentAction;
+import models.EnrollmentType;
+import org.joda.time.DateTime;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -15,26 +20,75 @@ public class EnrollmentActionService extends FdfCommonServices {
         return enrollmentAction;
     }
 
+    public boolean enrollSelf(long userId, long sectionId) {
+        EnrollmentAction enrollmentAction = new EnrollmentAction(userId, sectionId, new DateTime(), EnrollmentType.ADD);
+        List<FdfEntity<EnrollmentAction>> enrollments = getAllEnrollmentsByUserAndSectionId(userId, sectionId);
+        if (!enrollments.isEmpty()) {
+            Collections.sort(enrollments, (a, b) -> a.current.dateTime.compareTo(b.current.dateTime));
+            Collections.reverse(enrollments);
+            // If the last action that we took was to ADD this class, do nothing
+            if (enrollments.get(0).current.type.equals(EnrollmentType.ADD)) {
+                return false;
+            }
+        }
+        saveEnrollmentAction(enrollmentAction);
+        return true;
+    }
+
+    public boolean enrollOther(long myId, long userId, long sectionId) {
+        if(myId == userId) return enrollSelf(userId, sectionId);
+        if(AccessService.getInstance().isAuthorized(sectionId, myId, AccessLevel.ADMINISTRATOR)) {
+            return enrollSelf(userId, sectionId);
+        }
+        return false;
+    }
+
+    public boolean disenrollSelf(long userId, long sectionId) {
+        EnrollmentAction enrollmentAction = new EnrollmentAction(userId, sectionId, new DateTime(), EnrollmentType.DROP);
+        List<FdfEntity<EnrollmentAction>> enrollments = getAllEnrollmentsByUserAndSectionId(userId, sectionId);
+        if (!enrollments.isEmpty()) {
+            Collections.sort(enrollments, (a, b) -> a.current.dateTime.compareTo(b.current.dateTime));
+            Collections.reverse(enrollments);
+            // If the last action that we took was to DROP this class, do nothing
+            if (enrollments.get(0).current.type.equals(EnrollmentType.DROP)) {
+                return false;
+            }
+        }
+        saveEnrollmentAction(enrollmentAction);
+        return true;
+    }
+
+    public boolean disenrollOther(long myId, long userId, long sectionId) {
+        if(myId == userId) return disenrollSelf(userId, sectionId);
+        if(AccessService.getInstance().isAuthorized(sectionId, myId, AccessLevel.ADMINISTRATOR)) {
+            return disenrollSelf(userId, sectionId);
+        }
+        return false;
+    }
+
     public List<EnrollmentAction> getAllEnrollments(){
-        return this.getAllCurrent(EnrollmentAction.class);
+        return getAllCurrent(EnrollmentAction.class);
     }
 
     public List<FdfEntity<EnrollmentAction>> getAllEnrollmentsWithHistory() {
-        return this.getAll(EnrollmentAction.class);
+        return getAll(EnrollmentAction.class);
     }
 
-    public EnrollmentAction getEnrollmentByUserId(long userId){
-        List <FdfEntity<EnrollmentAction>> tarEnroll =
-                getEntitiesByValueForPassedField(EnrollmentAction.class, "userId", Long.toString(userId));
-        return tarEnroll.get(0).current;
+    public List<FdfEntity<EnrollmentAction>> getAllEnrollmentsByUserId(long userId){
+        return getEntitiesByValueForPassedField(EnrollmentAction.class, "userId", Long.toString(userId));
+    }
+
+    public List<FdfEntity<EnrollmentAction>> getAllEnrollmentsBySectionId(long sectionId){
+        return getEntitiesByValueForPassedField(EnrollmentAction.class, "sectionId", Long.toString(sectionId));
+    }
+
+    public List<FdfEntity<EnrollmentAction>> getAllEnrollmentsByUserAndSectionId(long userId, long sectionId){
+        HashMap<String, String> fieldsAndValues = new HashMap<>();
+        fieldsAndValues.put("userId", Long.toString(userId));
+        fieldsAndValues.put("sectionId", Long.toString(sectionId));
+        return getEntitiesByValuesForPassedFields(EnrollmentAction.class, fieldsAndValues);
     }
 
     public void deleteEnrollmentActions(Long id) { setDeleteFlag(EnrollmentAction.class, id, -1, -1); }
     public void undeleteEnrollmentActions(Long id) { removeDeleteFlag(EnrollmentAction.class, id, -1, -1); }
-
-    public void saveEnrollmentActionsForSection(long sectionId, List<EnrollmentAction> enrollmentActions) {
-    }
-
-    public void saveEnrollmentActionsForUser(long userId, List<EnrollmentAction> enrollmentActions) {
-    }
 }
