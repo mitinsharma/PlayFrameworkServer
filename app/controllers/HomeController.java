@@ -18,9 +18,7 @@ public class HomeController extends Controller {
      *
      */
 
-    public Result index() {
-        return ok("Your new application is ready");
-    }
+    public Result index() { return ok("Your new application is ready"); }
 
     public Result testRoute(String line) {
         System.out.println(line);
@@ -34,7 +32,7 @@ public class HomeController extends Controller {
     }
 
     public Result serviceTest() {
-        DbInit.getInstance().assigmentTest();
+        DbInit.getInstance().userTest();
         return ok("Service Test Complete.");
     }
 

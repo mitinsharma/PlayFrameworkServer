@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static models.AccessLevel.FACULTY;
+import static models.AccessLevel.STUDENT;
 import static models.AccessLevel.TA;
 
 /**
@@ -44,12 +45,20 @@ public class PostService extends FdfCommonServices {
     public void deleteAssignment(Assignment assignment) { setDeleteFlag(Assignment.class, assignment.id, -1, -1); }
     public void undeleteAssignment(Assignment assignment) { removeDeleteFlag(Assignment.class, assignment.id, -1, -1); }
 
+    public boolean submitAssignment(long userId, long sectionId, Assignment assignment) {
+        if(AccessService.getInstance().isAuthorized(sectionId, userId, STUDENT)) {
+            saveAssignment(assignment);
+            return true;
+        }
+        return false;
+    }
+
     public boolean gradeAssignment(long userId, long assignmentId, float grade) {
-        AccessService accessService = new AccessService();
         SectionService sectionService = new SectionService();
         Assignment assignment = getAssignmentById(assignmentId);
         Section section = sectionService.getSectionById(assignment.sectionId);
         if(section != null){
+            AccessService accessService = AccessService.getInstance();
             if(accessService.isAuthorized(section.id, userId, FACULTY) ||
                     accessService.isAuthorized(section.id, userId, TA)) {
                 assignment.score = grade;

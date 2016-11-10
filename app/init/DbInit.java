@@ -1,5 +1,6 @@
 package init;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fdflib.persistence.database.DatabaseUtil;
 import com.fdflib.service.FdfServices;
 import com.fdflib.util.FdfSettings;
@@ -74,16 +75,15 @@ public class DbInit {
         // Call the initialization of the library
         FdfServices.initializeFdfDataModel(myModel);
 
-//        serviceTest();
-        assigmentTest();
-//        userTest();
+        elementTest();
+        userTest();
     }
 
     /**
-     * serviceTest calls all the model test methods
+     * Calls all the model test methods
      */
-    private void serviceTest() {
-        AccessService as = new AccessService();
+    private void elementTest() {
+        AccessService as = AccessService.getInstance();
         CourseService cs = new CourseService();
         LmsService ls = new LmsService();
         SectionService ss = new SectionService();
@@ -105,13 +105,13 @@ public class DbInit {
     }
 
     /**
-     * Create an Assignment as STUDENT.
-     * Associate it with a Section
-     * Apply a grade as TA
-     * Apply a grade as FACULTY
+     * Tests functionality around Users, including
+     * Posts and Assignments(posting, grading)
+     * UserAccess/isAuthorized(Enroll, Drop, grading, etc)
+     *
      */
-    public void assigmentTest() {
-        AccessService accessService = new AccessService();
+    public void userTest() {
+        AccessService accessService = AccessService.getInstance();
         PostService postService = new PostService();
         SectionService sectionService = new SectionService();
         UserService userService = new UserService();
@@ -138,116 +138,12 @@ public class DbInit {
                 "Pretend this is an essay or something", section.id);
         Assignment a2 = new Assignment(100, "Stan's Lab",
                 "Some lab that the TA has to grade", section.id);
-        assignments.add(a1);
-        assignments.add(a2);
 
-        assignments.forEach(postService::saveAssignment);
-        postService.saveAssignmentsForUser(section.id, assignments);
-        postService.saveAssignmentsForSection(section.id, assignments);
+        postService.submitAssignment(student.id, section.id, a1);
+        postService.submitAssignment(student.id, section.id, a2);
 
         postService.gradeAssignment(student.id, a1.id, 60);
         postService.gradeAssignment(faculty.id, a1.id, 53);
         postService.gradeAssignment(ta.id, a2.id, 87);
-    }
-
-    /**
-     * Create a Course
-     * Associate it with a Department
-     *     as an ADMINISTRATOR/FACULTY/TA/STUDENT?
-     */
-    private void courseTest() {
-
-    }
-
-    /**
-     * Create a Department
-     * Associate it with an Institution
-     *     as an ADMINISTRATOR/FACULTY/TA/STUDENT?
-     */
-    private void departmentTest() {
-
-    }
-
-    /**
-     * Create some EnrollmentActions
-     * Associate them with a User
-     * Associate them with a Section(or two)
-     */
-    private void entrollmentActionTest() {
-
-    }
-
-    /**
-     * Create an Institution
-     * Associate it with an LMS
-     */
-    private void institutionTest() {
-
-    }
-
-    /**
-     * Create some Posts
-     * Associate them with a Section
-     * Associate them with a STUDENT, TA, FACULTY, and ADMINISTRATOR
-     */
-    private void postTest() {
-
-    }
-
-    /**
-     * Create a Section
-     * Associate it with a Course
-     * Associate it with some MeetingTimes
-     * Associate it with a Term
-     */
-    private void sectionTest() {
-
-    }
-
-    /**
-     * Create a Term
-     * Associate it with an Institution
-     * Associate it with some Sections
-     */
-    private void termTest() {
-
-    }
-
-    /**
-     * Create some Users
-     * Associate them with some EnrollmentActions(student<->section)
-     * Get a class(section) list
-     */
-    private void userTest() {
-        UserService us = new UserService();
-        PostService ps = new PostService();
-
-        User testStudent = new User("Student", "Test", "Student", "TestPass");
-        User testAdmin = new User("Admin", "Test", "Admin", "TestPass");
-        User testFaculty = new User("Faculty", "Test", "Faculty", "TestPass");
-        User testTa = new User("TA", "Test", "Ta", "TestPass");
-
-        us.saveUser(testStudent);
-        us.saveUser(testAdmin);
-        us.saveUser(testFaculty);
-        us.saveUser(testTa);
-
-        // User Post Tests
-
-        // test student post
-        Post studentPost = new Post("Test student post", "Content of post", -1);
-        ps.savePost(studentPost);
-
-        // test admin post
-        Post adminPost = new Post("Test admin post", "Content of post", -1);
-        ps.savePost(adminPost);
-
-        // test faculty post
-        Post facultyPost = new Post("Test faculty post", "Content of post", -1);
-        ps.savePost(facultyPost);
-
-        // test ta post
-        Post taPost = new Post("Test ta post", "Content of post", -1);
-        ps.savePost(taPost);
     }
 }

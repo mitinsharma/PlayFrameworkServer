@@ -3,16 +3,24 @@ package services;
 import com.fdflib.model.entity.FdfEntity;
 import com.fdflib.service.impl.FdfCommonServices;
 import models.AccessLevel;
-import models.Section;
 import models.UserAccess;
 
+import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by tsmanner on 10/22/2016.
  */
+@Singleton
 public class AccessService extends FdfCommonServices {
+    private static AccessService sInstance;
+
+    public static AccessService getInstance() {
+        if(sInstance == null) sInstance = new AccessService();
+        return sInstance;
+    }
+
     public UserAccess saveUserAccess(UserAccess userAccess) {
         List<FdfEntity<UserAccess>> savedUserAccesses = getUserAccessByIds(userAccess.userId, userAccess.elementId, userAccess.accessLevel);
         if(!savedUserAccesses.isEmpty() && savedUserAccesses.get(0).current != null &&
