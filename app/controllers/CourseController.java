@@ -16,7 +16,7 @@ import services.SectionService;
 import java.util.List;
 
 /**
- * Created by brian.gormanly on 9/26/16.
+ * Created by Dominic Rossillo on 9/26/16.
  */
 public class CourseController extends Controller {
 
