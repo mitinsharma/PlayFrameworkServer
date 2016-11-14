@@ -14,18 +14,18 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 
 # Mapping routes for Course Controller, course
 GET     /getAllCourses                          controllers.CourseController.getAllCourses()
-GET     /getCourseByName/:courseName          controllers.CourseController.getCourseByName(courseName: String)
-GET     /getCourseSectionByIds/:courseId/:sectionId          controllers.CourseController.getCourseSectionByIds(courseId: long,sectionId: long)
+GET     /getCourseByName/:courseName            controllers.CourseController.getCourseByName(courseName: String)
+GET     /getCourseSectionByIds/:courseId/:sectionId      controllers.CourseController.getCourseSectionByIds(courseId: Long, sectionId: Long)
 
 POST    /saveCourse                             controllers.CourseController.saveCourse()
 
-#routes for course controller, section
+# Mapping routes for Course Controller, section
 GET     /getAllSections                          controllers.CourseController.getAllSections()
 GET     /getAllSectionsWithHistory               controllers.CourseController.getAllSectionsWithHistory()
 GET     /getSectionByNumber/:sectionNumber       controllers.CourseController.getSectionByNumber(sectionNumber: String)
 GET     /getSectionByCourseName/:courseName      controllers.CourseController.getSectionByCourseName(courseName: String)
-GET     /getSectionById/:sectionId               controllers.CourseController.getSectionById(sectionId: long)
-GET     /getSectionByNameAndNumber/:name/:sectionNumber      controllers.CourseController.getSectionById(name: String,sectionNumber: int)
+GET     /getSectionById/:sectionId               controllers.CourseController.getSectionById(sectionId: Long)
+GET     /getSectionByNameAndNumber/:name/:sectionNumber      controllers.CourseController.getSectionByNameAndNumber(name: String, sectionNumber: Int)
 
 POST    /saveSection                            controllers.CourseController.saveSection()
-POST    /saveSectionForCourse/:courseId/:sectionList      controllers.CourseController.saveSectionForCourse(courseId: long,sectionList: List<Section>)
+POST    /saveSectionForCourse/:courseId/:sectionId      controllers.CourseController.saveSectionForCourse(courseId: Long, sectionId: Long)

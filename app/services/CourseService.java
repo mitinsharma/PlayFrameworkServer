@@ -46,8 +46,7 @@ public class CourseService extends FdfCommonServices{
     public void saveSectionsForCourse(long courseId, List<Section> sections) {
         for(Section section : sections) {
             CourseSection courseSection = new CourseSection(courseId, section.id);
-            List<FdfEntity<CourseSection>> savedCourseSections;
-            savedCourseSections = getCourseSectionByIds(courseId, section.id);
+            List<FdfEntity<CourseSection>> savedCourseSections = getCourseSectionByIds(courseId, section.id);
             if(!savedCourseSections.isEmpty() && savedCourseSections.get(0).current != null &&
                     savedCourseSections.get(0).current.courseId == courseId &&
                     savedCourseSections.get(0).current.sectionId == section.id) {
@@ -55,6 +54,17 @@ public class CourseService extends FdfCommonServices{
             }
             save(CourseSection.class, courseSection);
         }
+    }
+
+    public void saveCourseSection(long courseId, long sectionId) {
+        CourseSection courseSection = new CourseSection(courseId, sectionId);
+        List<FdfEntity<CourseSection>> savedCourseSections = getCourseSectionByIds(courseSection.courseId, courseSection.sectionId);
+        if(!savedCourseSections.isEmpty() && savedCourseSections.get(0).current != null &&
+                savedCourseSections.get(0).current.courseId == courseSection.courseId &&
+                savedCourseSections.get(0).current.sectionId == courseSection.sectionId) {
+            courseSection.id = savedCourseSections.get(0).current.id;
+        }
+        save(CourseSection.class, courseSection);
     }
 
     public List<FdfEntity<CourseSection>> getCourseSectionByIds(long courseId, long sectionId) {

@@ -25,18 +25,17 @@ public class SectionService extends FdfCommonServices {
         return newSection;
     }
 
-    public List<Section> getAllSections() { return this.getAllCurrent(Section.class); }
+    public List<Section> getAllSections() { return getAllCurrent(Section.class); }
 
-    public List<FdfEntity<Section>> getAllSectionsWithHistory() { return this.getAll(Section.class); }
+    public List<FdfEntity<Section>> getAllSectionsWithHistory() { return getAll(Section.class); }
 
     public Section getSectionByNumber(String sectionNumber){
-        List <FdfEntity<Section>> tarSection= getEntitiesByValueForPassedField(Section.class, "sectionNumber", sectionNumber);
+        List <FdfEntity<Section>> tarSection = getEntitiesByValueForPassedField(Section.class, "sectionNumber", sectionNumber);
         return tarSection.get(0).current;
     }
 
     public List<FdfEntity<Section>> getSectionByCourseName(String name){
-        List <FdfEntity<Section>> tarSection= getEntitiesByValueForPassedField(Section.class, "name", name);
-        return tarSection;
+        return getEntitiesByValueForPassedField(Section.class, "name", name);
     }
 
     public Section getSectionById(Long id) { return getEntityCurrentById(Section.class,id); }
