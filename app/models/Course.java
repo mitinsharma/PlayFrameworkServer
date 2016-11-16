@@ -6,4 +6,15 @@ package models;
 public class Course extends LmsAccessElement {
     public String name;
     public int  code;
+
+
+    public Course(String courseName,int courseCode)
+    {
+        super();
+        name = courseName;
+        code = courseCode;
+
+
+    }
+
 }

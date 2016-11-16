@@ -1,13 +1,11 @@
 package init;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fdflib.persistence.database.DatabaseUtil;
 import com.fdflib.service.FdfServices;
 import com.fdflib.util.FdfSettings;
 import models.*;
 import play.Environment;
 import services.*;
-
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -41,8 +39,8 @@ public class DbInit {
         FdfSettings.DB_PROTOCOL = DatabaseUtil.DatabaseProtocol.JDBC_MYSQL;
         FdfSettings.DB_ENCODING = DatabaseUtil.DatabaseEncoding.UTF8;
         FdfSettings.DB_HOST = "localhost";
-        FdfSettings.DB_ROOT_USER = "team2_root";
-        FdfSettings.DB_ROOT_PASSWORD = "isbestteam_root";
+        FdfSettings.DB_ROOT_USER = "root";
+        FdfSettings.DB_ROOT_PASSWORD = "phasezam123";
         FdfSettings.DB_USER = "team2";
         FdfSettings.DB_PASSWORD = "isbestteam";
         FdfSettings.DB_NAME = "mscs_lms";
@@ -77,6 +75,7 @@ public class DbInit {
 
         elementTest();
         userTest();
+        courseTest();
     }
 
     /**
@@ -201,5 +200,14 @@ public class DbInit {
         enrollmentActionService.disenrollOther(faculty.id, student.id, section.id);
         enrollmentActionService.enrollOther(ta.id, student.id, section.id);
         enrollmentActionService.disenrollOther(ta.id, student.id, section.id);
+    }
+
+    public void courseTest() {
+        CourseService cs = new CourseService();
+        Course testCourse = new Course("Intro to Programming",101);
+////        System.out.println("Testing Course Add");
+////        System.out.println(testCourse.name);
+        cs.saveCourse(testCourse);
+
     }
 }
