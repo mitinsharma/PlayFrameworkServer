@@ -39,8 +39,8 @@ public class DbInit {
         FdfSettings.DB_PROTOCOL = DatabaseUtil.DatabaseProtocol.JDBC_MYSQL;
         FdfSettings.DB_ENCODING = DatabaseUtil.DatabaseEncoding.UTF8;
         FdfSettings.DB_HOST = "localhost";
-        FdfSettings.DB_ROOT_USER = "root";
-        FdfSettings.DB_ROOT_PASSWORD = "phasezam123";
+        FdfSettings.DB_ROOT_USER = "team2_root";
+        FdfSettings.DB_ROOT_PASSWORD = "isbestteam_root";
         FdfSettings.DB_USER = "team2";
         FdfSettings.DB_PASSWORD = "isbestteam";
         FdfSettings.DB_NAME = "mscs_lms";
@@ -89,6 +89,7 @@ public class DbInit {
         TermService ts = new TermService();
         UserService us = new UserService();
 
+
         LMS lms = new LMS("team2-LMS");
         Institution marist = new Institution("Marist College");
         Department mscs = new Department("MSCS");
@@ -122,8 +123,10 @@ public class DbInit {
         /*
          * Setup and save the required LMS Elements(just a section)
          */
+
         Section section = new Section("TestSection", 1);
         sectionService.saveSection(section);
+
 
         /*
          * Setup and save some users
@@ -204,10 +207,18 @@ public class DbInit {
 
     public void courseTest() {
         CourseService cs = new CourseService();
+        SectionService ss = new SectionService();
         Course testCourse = new Course("Intro to Programming",101);
 ////        System.out.println("Testing Course Add");
 ////        System.out.println(testCourse.name);
+        Section testSection1 =new Section("test1 Intro section",1);
+        //ss.saveSection(testSection1);
+        Section testSection2 =new Section("test2 Intro section",2);
+        ss.saveSection(testSection2);
+       // List<Section> sectionList= ss.getAllSections();
+
         cs.saveCourse(testCourse);
+       // cs.saveSectionsForCourse(testCourse.id,sectionList);
 
     }
 }
