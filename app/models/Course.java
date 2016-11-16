@@ -8,13 +8,9 @@ public class Course extends LmsAccessElement {
     public int  code;
 
     public Course() { super(); }
-    public Course(String courseName,int courseCode)
-    {
+    public Course(String courseName,int courseCode) {
         super();
         name = courseName;
         code = courseCode;
-
-
     }
-
 }

@@ -12,16 +12,11 @@ import java.util.List;
  */
 public class SectionService extends FdfCommonServices {
     public Section saveSection(Section newSection) {
-        if(getEntitiesByValueForPassedField(Section.class, "name", newSection.name).size()<1
-                && getEntitiesByValueForPassedField(Section.class, "sectionNumber", Integer.toString(newSection.sectionNumber)).size()<1){
-            save(Section.class,newSection);
+        FdfEntity<Section> existingSection = getSectionByNameAndNumber(newSection.name, newSection.sectionNumber);
+        if(existingSection != null) {
+            newSection.id = existingSection.current.id;
         }
-        else {
-            FdfEntity<Section> oldSection = getSectionByNameAndNumber(newSection.name,newSection.sectionNumber);
-            newSection.id=oldSection.entityId;
-            newSection.cf=true;
-            save(Section.class, newSection);
-        }
+        save(Section.class, newSection);
         return newSection;
     }
 

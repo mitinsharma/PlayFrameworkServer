@@ -43,7 +43,6 @@ public class AccessService extends FdfCommonServices {
 
     public boolean isAuthorized(long lmsElementId, long userId, AccessLevel requiredAccessLevel) {
         List<FdfEntity<UserAccess>> entities = getUserAccessByIds(userId, lmsElementId, requiredAccessLevel);
-        if(entities.size() > 0 && entities.get(0).current != null) return true;
-        return false;
+        return entities.size() > 0 && entities.get(0).current != null;
     }
 }

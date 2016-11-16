@@ -208,17 +208,17 @@ public class DbInit {
     public void courseTest() {
         CourseService cs = new CourseService();
         SectionService ss = new SectionService();
-        Course testCourse = new Course("Intro to Programming",101);
-////        System.out.println("Testing Course Add");
-////        System.out.println(testCourse.name);
-        Section testSection1 =new Section("test1 Intro section",1);
-        //ss.saveSection(testSection1);
-        Section testSection2 =new Section("test2 Intro section",2);
+        Course testCourse = new Course("Intro to Programming", 101);
+        Section testSection1 = new Section("Intro section", 1);
+        ss.saveSection(testSection1);
+        Section testSection2 = new Section("Intro section", 2);
         ss.saveSection(testSection2);
-       // List<Section> sectionList= ss.getAllSections();
+
+        List<Section> sectionList = new ArrayList<>();
+        sectionList.add(testSection1);
+        sectionList.add(testSection2);
 
         cs.saveCourse(testCourse);
-       // cs.saveSectionsForCourse(testCourse.id,sectionList);
-
+        cs.saveSectionsForCourse(testCourse.id, sectionList);
     }
 }
