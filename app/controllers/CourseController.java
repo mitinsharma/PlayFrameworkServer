@@ -13,7 +13,6 @@ import play.mvc.Result;
 import services.CourseService;
 import services.SectionService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +22,7 @@ public class CourseController extends Controller {
 
     public Result getAllCourses() {
         CourseService cs = new CourseService();
-        List<Course> allCourses = cs. getAllCourses();
+        List<Course> allCourses = cs.getAllCourses();
         return ok(Json.toJson(allCourses));
     }
 

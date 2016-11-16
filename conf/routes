@@ -29,3 +29,7 @@ GET     /getSectionByNameAndNumber/:name/:sectionNumber      controllers.CourseC
 
 POST    /saveSection                            controllers.CourseController.saveSection()
 POST    /saveSectionForCourse/:courseId/:sectionId      controllers.CourseController.saveSectionForCourse(courseId: Long, sectionId: Long)
+
+
+# Routes for department controller
+POST    /saveDepartment                            controllers.DepartmentController.saveDepartment()
