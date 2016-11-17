@@ -8,6 +8,7 @@ import models.EnrollmentType;
 import org.joda.time.DateTime;
 
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,11 +37,9 @@ public class EnrollmentActionService extends FdfCommonServices {
     }
 
     public boolean enrollOther(long myId, long userId, long sectionId) {
-        if(myId == userId) return enrollSelf(userId, sectionId);
-        if(AccessService.getInstance().isAuthorized(sectionId, myId, AccessLevel.ADMINISTRATOR)) {
-            return enrollSelf(userId, sectionId);
-        }
-        return false;
+        if (myId == userId) return enrollSelf(userId, sectionId);
+        return AccessService.getInstance().isAuthorized(sectionId, myId, EnumSet.of(AccessLevel.ADMINISTRATOR)) &&
+                enrollSelf(userId, sectionId);
     }
 
     public boolean disenrollSelf(long userId, long sectionId) {
@@ -60,19 +59,15 @@ public class EnrollmentActionService extends FdfCommonServices {
 
     public boolean disenrollOther(long myId, long userId, long sectionId) {
         if(myId == userId) return disenrollSelf(userId, sectionId);
-        if(AccessService.getInstance().isAuthorized(sectionId, myId, AccessLevel.ADMINISTRATOR)) {
+        if(AccessService.getInstance().isAuthorized(sectionId, myId, EnumSet.of(AccessLevel.ADMINISTRATOR))) {
             return disenrollSelf(userId, sectionId);
         }
         return false;
     }
 
-    public List<EnrollmentAction> getAllEnrollments(){
-        return getAllCurrent(EnrollmentAction.class);
-    }
+    public List<EnrollmentAction> getAllEnrollments() { return getAllCurrent(EnrollmentAction.class); }
 
-    public List<FdfEntity<EnrollmentAction>> getAllEnrollmentsWithHistory() {
-        return getAll(EnrollmentAction.class);
-    }
+    public List<FdfEntity<EnrollmentAction>> getAllEnrollmentsWithHistory() { return getAll(EnrollmentAction.class); }
 
     public List<FdfEntity<EnrollmentAction>> getAllEnrollmentsByUserId(long userId){
         return getEntitiesByValueForPassedField(EnrollmentAction.class, "userId", Long.toString(userId));

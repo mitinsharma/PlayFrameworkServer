@@ -3,11 +3,15 @@ package services;
 import com.fdflib.model.entity.FdfEntity;
 import com.fdflib.service.impl.FdfCommonServices;
 import models.AccessLevel;
+import models.User;
 import models.UserAccess;
 
 import javax.inject.Singleton;
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by tsmanner on 10/22/2016.
@@ -41,8 +45,20 @@ public class AccessService extends FdfCommonServices {
         return getEntitiesByValuesForPassedFields(UserAccess.class, fieldsAndValues);
     }
 
-    public boolean isAuthorized(long lmsElementId, long userId, AccessLevel requiredAccessLevel) {
-        List<FdfEntity<UserAccess>> entities = getUserAccessByIds(userId, lmsElementId, requiredAccessLevel);
-        return entities.size() > 0 && entities.get(0).current != null;
+    public List<FdfEntity<UserAccess>> getUserAccessByUserAndElement(long userId, long elementId) {
+        HashMap<String, String> fieldsAndValues = new HashMap<>();
+        fieldsAndValues.put("userId", Long.toString(userId));
+        fieldsAndValues.put("elementId", Long.toString(elementId));
+        return getEntitiesByValuesForPassedFields(UserAccess.class, fieldsAndValues);
+    }
+
+    public boolean isAuthorized(long lmsElementId, long userId, EnumSet<AccessLevel> requiredAccessLevel) {
+        List<FdfEntity<UserAccess>> entities = getUserAccessByUserAndElement(userId, lmsElementId);
+        for(FdfEntity<UserAccess> entity : entities) {
+            if(requiredAccessLevel.contains(entity.current.accessLevel)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

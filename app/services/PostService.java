@@ -4,6 +4,7 @@ import com.fdflib.model.entity.FdfEntity;
 import com.fdflib.service.impl.FdfCommonServices;
 import models.*;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 
@@ -46,7 +47,8 @@ public class PostService extends FdfCommonServices {
     public void undeleteAssignment(Assignment assignment) { removeDeleteFlag(Assignment.class, assignment.id, -1, -1); }
 
     public boolean submitAssignment(long userId, Assignment assignment) {
-        if(AccessService.getInstance().isAuthorized(assignment.sectionId, userId, STUDENT)) {
+
+        if(AccessService.getInstance().isAuthorized(assignment.sectionId, userId, EnumSet.of(STUDENT))) {
             saveAssignment(assignment);
             return true;
         }
@@ -59,8 +61,7 @@ public class PostService extends FdfCommonServices {
         Section section = sectionService.getSectionById(assignment.sectionId);
         if(section != null){
             AccessService accessService = AccessService.getInstance();
-            if(accessService.isAuthorized(section.id, userId, FACULTY) ||
-                    accessService.isAuthorized(section.id, userId, TA)) {
+            if(accessService.isAuthorized(section.id, userId, EnumSet.of(FACULTY, TA))) {
                 assignment.score = grade;
                 saveAssignment(assignment);
                 return true;
