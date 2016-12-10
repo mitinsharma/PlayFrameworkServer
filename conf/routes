@@ -20,6 +20,7 @@ GET     /getCourseSectionByIds/:courseId/:sectionId      controllers.CourseContr
 POST    /saveCourse                             controllers.CourseController.saveCourse()
 
 # Mapping routes for Course Controller, section
+GET     /getMySections/:uid                      controllers.CourseController.getMySections(uid: Long)
 GET     /getAllSections                          controllers.CourseController.getAllSections()
 GET     /getAllSectionsWithHistory               controllers.CourseController.getAllSectionsWithHistory()
 GET     /getSectionByNumber/:sectionNumber       controllers.CourseController.getSectionByNumber(sectionNumber: String)
@@ -30,6 +31,14 @@ GET     /getSectionByNameAndNumber/:name/:sectionNumber      controllers.CourseC
 POST    /saveSection                            controllers.CourseController.saveSection()
 POST    /saveSectionForCourse/:courseId/:sectionId      controllers.CourseController.saveSectionForCourse(courseId: Long, sectionId: Long)
 
+#Routes for Mitin's UI
+#Login
+GET     /login/:username                        controllers.UserController.getUser(username: String)
+GET     /getAllUsers                            controllers.UserController.getAllUsers()
+GET     /enrollMySelf/:studentId/:sectionId     controllers.EnrollmentActionController.enrollMySelf(studentId: Long, sectionId: Long)
+GET     /denrollMySelf/:studentId/:sectionId    controllers.EnrollmentActionController.denrollMySelf(studentId: Long, sectionId: Long)
 
 # Routes for department controller
 POST    /saveDepartment                            controllers.DepartmentController.saveDepartment()
+
+#OPTIONS        /getAllCourses                          controllers.CourseController.getAllCourses()

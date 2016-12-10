@@ -14,3 +14,6 @@ libraryDependencies ++= Seq(
 , "com.squareup.okhttp" % "okhttp" % "2.6.0"
 , "com.google.code.gson" % "gson" % "2.6"
 )
+
+libraryDependencies += filters
+

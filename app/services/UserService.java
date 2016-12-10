@@ -24,14 +24,14 @@ public class UserService extends FdfCommonServices{
         return newUser;
     }
 
+
     public List<User> getAllUserss() { return this.getAllCurrent(User.class); }
     public List<FdfEntity<User>> getAllUsersWithHistory() {
         return this.getAll(User.class);
     }
 
-    public User getUserByUserName(String userName){
-        List <FdfEntity<User>> tarUser= getEntitiesByValueForPassedField(User.class, "userName", userName);
-        return tarUser.get(0).current;
+    public List getUserByUserName(String userName){
+        return  getEntitiesByValueForPassedField(User.class, "userName", userName);
     }
 
     public User getUserByUserId(Long id) { return getEntityCurrentById(User.class,id); }

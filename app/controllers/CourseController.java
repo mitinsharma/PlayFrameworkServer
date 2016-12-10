@@ -5,14 +5,17 @@ import com.fdflib.model.entity.FdfEntity;
 import com.google.gson.Gson;
 import models.Course;
 import models.CourseSection;
+import models.EnrollmentAction;
 import models.Section;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 import services.CourseService;
+import services.EnrollmentActionService;
 import services.SectionService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -111,4 +114,30 @@ public class CourseController extends Controller {
         FdfEntity<Section> section = ss.getSectionByNameAndNumber(name,sectionNumber);
         return ok(Json.toJson(section));
     }
+
+    public Result getMySections(Long uid)
+    {
+        EnrollmentActionService eas = new EnrollmentActionService();
+        List<FdfEntity<EnrollmentAction>> mySecList = eas.getAllEnrollmentsByUserId(uid);
+
+        List<Long> returnSection = new ArrayList<>();
+
+        for(FdfEntity<EnrollmentAction> list : mySecList){
+            if(list!=null) {
+                //System.out.println("* * UserId: "+list.current.sectionId+", SectionId: "+list.current.sectionId);
+                returnSection.add(list.current.sectionId);
+            }
+        }
+
+        List<Section> sec = new ArrayList<>();
+        SectionService ss = new SectionService();
+        for(Long mySectionId : returnSection)
+        {
+            Section s = ss.getSectionById(mySectionId);
+            sec.add(s);
+        }
+        return ok(Json.toJson(sec));
+
+    }
+
 }

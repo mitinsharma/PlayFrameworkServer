@@ -39,11 +39,11 @@ public class DbInit {
         FdfSettings.DB_PROTOCOL = DatabaseUtil.DatabaseProtocol.JDBC_MYSQL;
         FdfSettings.DB_ENCODING = DatabaseUtil.DatabaseEncoding.UTF8;
         FdfSettings.DB_HOST = "localhost";
-        FdfSettings.DB_ROOT_USER = "team2_root";
-        FdfSettings.DB_ROOT_PASSWORD = "isbestteam_root";
-        FdfSettings.DB_USER = "team2";
-        FdfSettings.DB_PASSWORD = "isbestteam";
-        FdfSettings.DB_NAME = "mscs_lms";
+        FdfSettings.DB_ROOT_USER = "root";
+        FdfSettings.DB_ROOT_PASSWORD = "262521";
+        FdfSettings.DB_USER = "mitin";
+        FdfSettings.DB_PASSWORD = "262521";
+        FdfSettings.DB_NAME = "lms";
 
         // Create an array that makes up our 4df data model.
         List<Class> myModel = new ArrayList<>();
